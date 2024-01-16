@@ -68,7 +68,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1300,
     height: 900,
-    title: "Cranesoft POS",
+    title: "Stopwatch Timer",
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true,
