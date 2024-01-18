@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
 function App() {
-  const [countdown, setCountDown] = useState(1 * 60);
+  const [countdown, setCountDown] = useState(125 * 60);
   const [bgChange, setBgChange] = useState(false);
   const timer = useRef();
 
   const formatTime = (time) => {
-    let hr = Math.floor(time / 60);
+    let hr = Math.floor(time / 3600 );
     let min = Math.floor((time % 3600) / 60);
-    let sec = Math.floor(time % 3600);
+    let sec = Math.floor(time % 60);
 
     if (hr < 10) {
       hr = "0" + hr;
@@ -19,7 +19,7 @@ function App() {
     if (sec < 10) {
       sec = "0" + sec;
     }
-    return hr + " : " + min + " : " + sec;
+    return hr + ":" + min + ":" + sec;
   };
 
   useEffect(() => {
