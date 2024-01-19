@@ -10,15 +10,9 @@ const template = [
     label: app.name,
     submenu: [
       {
-        label: "Open",
+        label: "Set Time",
         click: () => {
           // Add the functionality for the "Open" menu item here
-        },
-      },
-      {
-        label: "Save",
-        click: () => {
-          // Add the functionality for the "Save" menu item here
         },
       },
       {
@@ -33,7 +27,7 @@ const template = [
     ],
   },
   {
-    label: "Edit",
+    label: "Settings",
     submenu: [
       {
         label: "Cut",
@@ -66,7 +60,7 @@ const template = [
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1300,
+    width: 1200,
     height: 900,
     title: "Stopwatch Timer",
     webPreferences: {

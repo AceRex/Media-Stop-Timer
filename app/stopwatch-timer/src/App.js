@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 
 function App() {
-  const [countdown, setCountDown] = useState(125 * 60);
+  const [countdown, setCountDown] = useState(Number("45") * 60);
   const [bgChange, setBgChange] = useState(false);
   const timer = useRef();
 
   const formatTime = (time) => {
+    if (isNaN(time)) {
+      return "Time Up!!!";
+    }
+
     let hr = Math.floor(time / 3600 );
     let min = Math.floor((time % 3600) / 60);
     let sec = Math.floor(time % 60);
