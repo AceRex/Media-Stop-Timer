@@ -12,4 +12,8 @@
     height: 100vh;
     @apply bg-primary flex justify-center content-center;
   }
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
 }

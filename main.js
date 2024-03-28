@@ -6,8 +6,8 @@ app.setName("Stopwatch-Timer");
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
-    height: 400,
+    width: 1920,
+    height: 1080,
     title: "Stopwatch Timer",
     webPreferences: {
       contextIsolation: false,

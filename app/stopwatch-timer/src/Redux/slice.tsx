@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import utilSlice from "./state.tsx";
+import utilSlice from "./state";
 
 const store = configureStore({
   reducer: {

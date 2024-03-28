@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { utilAction } from "./Redux/state.tsx";
+import { utilAction } from "./Redux/state";
 import SetTimePage from "./Modal/SetTimePage.tsx";
 const { ipcRenderer } = window.require("electron");
 
@@ -9,7 +9,7 @@ function App() {
   const [bgChange, setBgChange] = useState(false);
   let dispatch = useDispatch();
 
-  const time = useSelector((state) => state.util.setTime);
+  // const time = useSelector((state) => state.util.setTime);
   const timer = useRef();
 
   const formatTime = (time) => {
@@ -64,7 +64,6 @@ function App() {
             }  p-12 flex rounded-lg `}
           >
             {/* {time && <setTimeInput />} */}
-
             <p className="text-[170px] font-extrabold">
               {formatTime(countdown)}
             </p>
