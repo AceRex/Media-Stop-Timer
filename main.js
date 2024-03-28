@@ -4,64 +4,10 @@ const path = require("path");
 
 app.setName("Stopwatch-Timer");
 
-
-const template = [
-  {
-    label: app.name,
-    submenu: [
-      {
-        label: "Set Time",
-        click: () => {
-          // Add the functionality for the "Open" menu item here
-        },
-      },
-      {
-        type: "separator",
-      },
-      {
-        label: "Exit",
-        click: () => {
-          app.quit();
-        },
-      },
-    ],
-  },
-  {
-    label: "Settings",
-    submenu: [
-      {
-        label: "Cut",
-        role: "cut",
-      },
-      {
-        label: "Copy",
-        role: "copy",
-      },
-      {
-        label: "Paste",
-        role: "paste",
-      },
-    ],
-  },
-  {
-    label: "Help",
-    submenu: [
-      {
-        label: "About",
-        click: () => {
-          // Add the functionality for the "About" menu item here
-        },
-      },
-    ],
-  },
-];
-
-
-
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1200,
-    height: 900,
+    width: 800,
+    height: 400,
     title: "Stopwatch Timer",
     webPreferences: {
       contextIsolation: false,
@@ -72,16 +18,105 @@ function createWindow() {
 
   // win.webContents.openDevTools();
 
+  const isMac = process.platform === "darwin";
+
+  const template = [
+    ...(isMac
+      ? [
+          {
+            label: app.name,
+            submenu: [
+              {
+                label: "Set Time",
+                click: () => {
+                  win.webContents.send("setTimer", true);
+                },
+                accelerator: "Ctrl+Shift+T",
+              },
+              {
+                type: "separator",
+              },
+              {
+                label: "Exit",
+                click: () => {
+                  app.quit();
+                },
+              },
+            ],
+          },
+        ]
+      : [
+          {
+            label: "File",
+            submenu: [
+              {
+                label: "Set Time",
+                click: () => {
+                  win.webContents.send("setTimer", true);
+                },
+                accelerator: "Ctrl+Shift+T",
+              },
+              {
+                type: "separator",
+              },
+              {
+                label: "Exit",
+                click: () => {
+                  app.quit();
+                },
+              },
+            ],
+          },
+        ]),
+
+    {
+      label: "Settings",
+      submenu: [
+        {
+          label: "Cut",
+          role: "cut",
+        },
+        {
+          label: "Copy",
+          role: "copy",
+        },
+        {
+          label: "Paste",
+          role: "paste",
+        },
+      ],
+    },
+    {
+      label: "Help",
+      submenu: [
+        {
+          label: "About",
+          click: () => {
+            // Add the functionality for the "About" menu item here
+          },
+        },
+      ],
+    },
+  ];
+
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 
-  const startUrl = url.format({
-    pathname: path.join(__dirname, "./app/build/index.html"),
-    protocol: "file",
-  });
+  let isDev;
+  try {
+    isDev = require("electron-is-dev").default;
+  } catch (e) {
+    console.error("Error loading electron-is-dev:", e);
+    isDev = true;
+  }
 
-  win.loadURL("http://localhost:3000");
+  const startUrl = url.format(
+    isDev
+      ? "http://localhost:3000"
+      : `file://${path.join(__dirname, "../build/index.html")}`
+  );
+
+  win.loadURL(startUrl);
 }
-
 
 app.whenReady().then(createWindow);
